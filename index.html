@@ -55,6 +55,16 @@
     .brand-text h1{margin:0;font-size:18px}
     .subtitle{margin:0;font-size:12px;color:var(--muted)}
 
+    /* Brand logo (added) */
+    .brand-logo {
+      width:64px;
+      height:64px;
+      object-fit:contain;
+      border-radius:10px;
+      box-shadow:0 6px 18px rgba(122,143,119,0.12);
+      flex-shrink:0;
+    }
+
     /* Navigation */
     .nav { position:relative; }
     .nav-list{list-style:none;margin:0;padding:0;display:flex;gap:18px}
@@ -87,9 +97,32 @@
     .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:14px}
     .info-card{background:var(--panel);padding:14px;border-radius:12px;}
 
-    /* Gallery */
-    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
-    .gallery-item, .video-thumb img{width:100%;height:180px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 6px 18px rgba(40,60,40,0.05)}
+    /* CAROUSEL (replaces gallery behaviour) */
+    .carousel {
+      width:100%;
+      overflow:hidden;
+      padding:8px 0;
+    }
+    .carousel-track {
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      /* no-wrap so items stay in one row */
+      white-space:nowrap;
+    }
+    .carousel-track > * {
+      flex: 0 0 320px; /* item width - adjust for responsiveness */
+      max-width:320px;
+    }
+    /* ensure images / video thumbs keep previous styles */
+    .gallery-item, .video-thumb img {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:10px;
+      display:block;
+      box-shadow:0 6px 18px rgba(40,60,40,0.05);
+    }
     .video-thumb{position:relative;cursor:pointer}
     .video-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:white;opacity:0.9;background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.18));border-radius:10px}
 
@@ -126,6 +159,7 @@
     @media(max-width:900px){
       .hero-grid{grid-template-columns:1fr;gap:18px}
       .info-grid{grid-template-columns:1fr}
+      .carousel-track > * { flex: 0 0 240px; max-width:240px; }
     }
   </style>
 </head>
@@ -133,6 +167,8 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#home">
+        <!-- LOGO: replace assets/logo.png with your logo file (PNG/SVG). No placeholder now. -->
+        <img class="brand-logo" src="assets/logo.png" alt="Folded Futures logo" width="64" height="64">
         <div class="brand-text">
           <h1>Folded Futures</h1>
           <p class="subtitle">Cardboard Houses Project</p>
@@ -215,22 +251,45 @@
       </div>
     </section>
 
-    <!-- MEDIA / GALLERY -->
+    <!-- MEDIA / CAROUSEL -->
     <section id="media" class="container gallery-section">
       <h3 class="reveal">Media</h3>
       <p class="muted reveal">Photos and videos from the sessions.</p>
 
-      <div class="gallery reveal">
-        <!-- Replace the src and data-full values with your image paths in assets/images/ -->
-        <img class="gallery-item" src="assets/photo1.jpg" alt="photo placeholder 1" data-full="assets/images/placeholder-1-large.jpg">
-        <img class="gallery-item" src="assets/photo2.jpg" alt="photo placeholder 2" data-full="assets/images/placeholder-2-large.jpg">
-        <img class="gallery-item" src="assets/photo3.jpg" alt="photo placeholder 3" data-full="assets/images/placeholder-3-large.jpg">
-        <!-- Video placeholder -->
-        <div class="video-thumb" data-video="assets/video1.mov" role="button" tabindex="0">
-          <div class="video-overlay">▶</div>
-          <img src="assets/photo1.jpg" alt="video placeholder">
+      <!-- Carousel wrapper -->
+      <div class="carousel reveal" id="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- original items -->
+          <img class="gallery-item" src="assets/photo1.jpg" alt="photo placeholder 1" data-full="assets/photo1-large.jpg">
+          <img class="gallery-item" src="assets/photo2.jpg" alt="photo placeholder 2" data-full="assets/photo2-large.jpg">
+          <img class="gallery-item" src="assets/photo3.jpg" alt="photo placeholder 3" data-full="assets/photo3-large.jpg">
+
+          <!-- added 5 more pictures (you can replace these filenames) -->
+          <img class="gallery-item" src="assets/photo4.jpg" alt="photo placeholder 4" data-full="assets/photo4-large.jpg">
+          <img class="gallery-item" src="assets/photo5.jpg" alt="photo placeholder 5" data-full="assets/photo5-large.jpg">
+          <img class="gallery-item" src="assets/photo6.jpg" alt="photo placeholder 6" data-full="assets/photo6-large.jpg">
+          <img class="gallery-item" src="assets/photo7.jpg" alt="photo placeholder 7" data-full="assets/photo7-large.jpg">
+          <img class="gallery-item" src="assets/photo8.jpg" alt="photo placeholder 8" data-full="assets/photo8-large.jpg">
+
+          <!-- existing video thumb (will open modal and play) -->
+          <div class="video-thumb" data-video="assets/video1.mp4" role="button" tabindex="0" aria-label="Play session video 1">
+            <img src="assets/video1-thumb.jpg" alt="video placeholder 1">
+            <div class="video-overlay">▶</div>
+          </div>
+
+          <!-- 2 more video thumbnails added -->
+          <div class="video-thumb" data-video="assets/video2.mp4" role="button" tabindex="0" aria-label="Play session video 2">
+            <img src="assets/video2-thumb.jpg" alt="video placeholder 2">
+            <div class="video-overlay">▶</div>
+          </div>
+
+          <div class="video-thumb" data-video="assets/video3.mp4" role="button" tabindex="0" aria-label="Play session video 3">
+            <img src="assets/video3-thumb.jpg" alt="video placeholder 3">
+            <div class="video-overlay">▶</div>
+          </div>
         </div>
       </div>
+
     </section>
 
     <!-- TESTIMONIALS -->
@@ -326,7 +385,7 @@
         navList.style.display = expanded ? 'none' : 'flex';
       });
 
-      // Gallery modal
+      // Gallery / carousel modal handling (delegation)
       const modal = document.getElementById('modal');
       const modalContent = modal.querySelector('.modal-content');
       const closeBtn = modal.querySelector('.modal-close');
@@ -338,6 +397,7 @@
           v.src = src;
           v.controls = true;
           v.autoplay = true;
+          v.style.maxHeight = '80vh';
           modalContent.appendChild(v);
         } else {
           const img = document.createElement('img');
@@ -352,24 +412,73 @@
         modalContent.innerHTML = '';
       }
 
-      document.querySelectorAll('.gallery-item').forEach(img => {
-        img.addEventListener('click', () => {
-          // open data-full if present, else open the src
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (ev) => { if (ev.target === modal) closeModal(); });
+
+      // Delegated click for images and video thumbs (works for clones too)
+      const carouselTrack = document.getElementById('carouselTrack');
+      carouselTrack && carouselTrack.addEventListener('click', function (e) {
+        const img = e.target.closest('.gallery-item');
+        if (img) {
           const full = img.dataset.full || img.src;
           openImage(full, false);
-        });
+          return;
+        }
+        const vid = e.target.closest('.video-thumb');
+        if (vid) {
+          const src = vid.dataset.video;
+          openImage(src, true);
+          return;
+        }
       });
 
+      // Keyboard accessibility for video thumbs
       document.querySelectorAll('.video-thumb').forEach(el => {
-        el.addEventListener('click', () => {
-          const src = el.dataset.video;
-          openImage(src, true);
-        });
         el.addEventListener('keypress', (e) => { if (e.key === 'Enter') el.click(); });
       });
 
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (ev) => { if (ev.target === modal) closeModal(); });
+      // --- CAROUSEL auto-scroll setup ---
+      (function setupCarousel() {
+        const carousel = document.getElementById('carousel');
+        const track = document.getElementById('carouselTrack');
+        if (!carousel || !track) return;
+
+        // Duplicate items so scrolling can loop seamlessly
+        track.innerHTML = track.innerHTML + track.innerHTML;
+
+        // We'll animate carousel.scrollLeft by small increments for a slow speed.
+        // Tweak `speed` (pixels per frame) to make it slower/faster. Small = slow.
+        const speed = 0.25; // pixels per tick — slow. Reduce to 0.15 to be even slower.
+        let running = true;
+        let rafId;
+
+        // Reset scroll to start from left
+        carousel.scrollLeft = 0;
+
+        function step() {
+          if (running) {
+            carousel.scrollLeft += speed;
+            // when we've scrolled past half of the track (original set), jump back
+            const half = track.scrollWidth / 2;
+            if (carousel.scrollLeft >= half) {
+              carousel.scrollLeft -= half;
+            }
+          }
+          rafId = requestAnimationFrame(step);
+        }
+
+        // Pause on hover / focus (so users can click)
+        carousel.addEventListener('mouseenter', () => running = false);
+        carousel.addEventListener('mouseleave', () => running = true);
+        carousel.addEventListener('focusin', () => running = false);
+        carousel.addEventListener('focusout', () => running = true);
+
+        // Start loop
+        step();
+
+        // Clean up on unload
+        window.addEventListener('beforeunload', () => cancelAnimationFrame(rafId));
+      })();
 
       // Contact form placeholder handler
       const form = document.getElementById('contactForm');
@@ -383,10 +492,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
