@@ -1,185 +1,86 @@
-<!doctype html>
+<!doctype html><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Folded Futures — Cardboard Houses Project</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dream Room Project</title>
+  
+  <!-- CSS inside same file -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f6f5f0;
+      color: #333;
+    }
 
-  <!-- Google font (replace if you prefer another) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    header {
+      background-color: #d7e4d1;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+    }
 
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#home">
-        <!-- Logo placeholder: replace with <img src="assets/images/logo.png" alt="Folded Futures logo"> -->
-        <div class="logo-placeholder" aria-hidden="true">LOGO</div>
-        <div class="brand-text">
-          <h1>Folded Futures</h1>
-          <p class="subtitle">Cardboard Houses Project</p>
-        </div>
-      </a>
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
 
-      <nav class="nav">
-        <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
-        <ul class="nav-list">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#media">Media</a></li>
-          <li><a href="#testimonials">Testimonials & Interviews</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    .hero {
+      text-align: center;
+      padding: 3rem 2rem;
+      background-color: #e9f1ec;
+    }
 
-  <main>
-    <!-- HERO -->
-    <section id="home" class="hero">
-      <div class="container hero-grid">
-        <div class="hero-left">
-          <div class="mission-card reveal">
-            <h2>Our mission</h2>
-            <p>
-              We bring children from displaced families together to imagine and build realistic dream rooms —
-              a gentle, creative way to restore hope, surface stories, and motivate future goals.
-            </p>
-            <ul class="meta-list">
-              <li><strong>Participants:</strong> 20–40 students</li>
-              <li><strong>Materials:</strong> Cardboard, clay, paints, paper, markers, glue, scissors</li>
-              <li><strong>Time spent:</strong> 2 sessions (building + decoration) — ~3–4 hours total</li>
-            </ul>
-            <a class="cta" href="#media">See media</a>
-          </div>
-        </div>
+    .section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
 
-        <div class="hero-right reveal">
-          <!-- big visual placeholder: replace with actual photo later -->
-          <div class="banner-placeholder">
-            <span>Banner / Photo placeholder</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    .materials, .gallery, .testimonials, .contact {
+      margin-bottom: 3rem;
+    }
 
-    <!-- ABOUT / DETAILS -->
-    <section id="about" class="container small-section reveal">
-      <h3>Project overview</h3>
-      <p>
-        This project gathered children who had experienced displacement and asked them to design their ideal,
-        realistic bedroom inside a cardboard model. We documented drawings, conducted short interviews about emotions
-        and aspirations, took photos and videos of the process, and gathered testimonials about how creating helped them.
-      </p>
+    .gallery-placeholder {
+      height: 200px;
+      background-color: #ddd;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: italic;
+      color: #777;
+    }
 
-      <div class="info-grid">
-        <div class="info-card">
-          <h4>Materials supplied</h4>
-          <ul>
-            <li>Cardboard boxes (one per group)</li>
-            <li>Modeling clay</li>
-            <li>Glazed / colored paper</li>
-            <li>Paint, markers, colored A4 sheets</li>
-            <li>Glue, scissors, tape</li>
-          </ul>
-        </div>
+    .testimonial-card {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
 
-        <div class="info-card">
-          <h4>Session flow</h4>
-          <ol>
-            <li>Welcome & pep talk (motivation + safety)</li>
-            <li>Model construction (structure & furniture)</li>
-            <li>Decoration & storytelling</li>
-            <li>Interviews & documentation</li>
-          </ol>
-        </div>
-      </div>
-    </section>
+    footer {
+      background-color: #d7e4d1;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
 
-    <!-- MEDIA / GALLERY -->
-    <section id="media" class="container gallery-section">
-      <h3 class="reveal">Media</h3>
-      <p class="muted reveal">Photos and videos from the sessions (placeholders — replace with your files).</p>
+    /* Simple scroll animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-in-out;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: tr
 
-      <div class="gallery reveal">
-        <!-- Replace the src and data-full values with your image paths in assets/images/ -->
-        <img class="gallery-item" src="assets/images/placeholder-1.jpg" alt="photo placeholder 1" data-full="assets/images/placeholder-1-large.jpg">
-        <img class="gallery-item" src="assets/images/placeholder-2.jpg" alt="photo placeholder 2" data-full="assets/images/placeholder-2-large.jpg">
-        <img class="gallery-item" src="assets/images/placeholder-3.jpg" alt="photo placeholder 3" data-full="assets/images/placeholder-3-large.jpg">
-        <!-- Video placeholder -->
-        <div class="video-thumb" data-video="assets/videos/placeholder-1.mp4" role="button" tabindex="0">
-          <div class="video-overlay">▶</div>
-          <img src="assets/images/video-placeholder.jpg" alt="video placeholder">
-        </div>
-      </div>
-    </section>
 
-    <!-- TESTIMONIALS -->
-    <section id="testimonials" class="container small-section">
-      <h3 class="reveal">Testimonials & Interviews</h3>
-      <p class="muted reveal">Short quotes and interview summaries from participants and teachers.</p>
-
-      <div class="testimonials-grid">
-        <!-- Translucent card placeholders. Replace name/text with real testimonials -->
-        <article class="testimonial-card reveal">
-          <h4>Ahmed (age 11)</h4>
-          <p class="quote">"I used pink because it reminded me of my aunt's blanket. I want to become an engineer to build houses."</p>
-        </article>
-
-        <article class="testimonial-card reveal">
-          <h4>Fatima (age 12)</h4>
-          <p class="quote">"Making my room made me feel safe. I want to be a teacher and help other children."</p>
-        </article>
-
-        <article class="testimonial-card reveal">
-          <h4>Teacher — Ms. Noor</h4>
-          <p class="quote">"This activity made the students open up. They were excited to share their stories."</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="container small-section reveal">
-      <h3>Contact & Share a Story</h3>
-      <p class="muted">If you have a story of displacement, know a child who could benefit, or want to help, contact us.</p>
-
-      <form id="contactForm" class="contact-form">
-        <div class="form-row">
-          <label for="name">Your name</label>
-          <input id="name" name="name" type="text" placeholder="Your name" required>
-        </div>
-
-        <div class="form-row">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required>
-        </div>
-
-        <div class="form-row">
-          <label for="message">Share a story / message</label>
-          <textarea id="message" name="message" rows="5" placeholder="Tell us briefly..." required></textarea>
-        </div>
-
-        <div class="form-actions">
-          <!-- The form is placeholder only; configure server or use mailto / form endpoint later -->
-          <button type="submit" class="btn">Send story</button>
-          <small class="hint">(This is a placeholder form — replace action with your form handling or use mailto.)</small>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <!-- Modal for images/videos -->
-  <div id="modal" class="modal" aria-hidden="true">
-    <button class="modal-close" aria-label="Close">✕</button>
-    <div class="modal-content"></div>
-  </div>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Folded Futures — Cardboard Houses Project. Built with care.</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
