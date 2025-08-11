@@ -114,6 +114,10 @@
       border-radius:12px;
       background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
       box-shadow: 0 12px 40px rgba(20,30,20,0.04);
+      /* prevent horizontal touch pan from interfering with js-controlled scroll,
+         while still allowing vertical scrolling (pan-y). */
+      touch-action: pan-y;
+      -ms-touch-action: pan-y;
     }
 
     /* We use JS scroll looping; disable the CSS marquee animation to avoid conflicting behavior */
@@ -529,9 +533,12 @@
           rafId = requestAnimationFrame(step);
         }
 
-        // Keep animation running continuously (no hover slow-down). Still allow pause if user focuses the carousel.
-        carousel.addEventListener('focusin', () => { running = false; });
-        carousel.addEventListener('focusout', () => { running = true; });
+        // Pause on keyboard focus only on non-touch / fine-pointer devices.
+        // This avoids mobile taps from pausing the loop.
+        if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+          carousel.addEventListener('focusin', () => { running = false; });
+          carousel.addEventListener('focusout', () => { running = true; });
+        }
 
         // Start loop
         step();
@@ -554,4 +561,3 @@
   </script>
 </body>
 </html>
-
