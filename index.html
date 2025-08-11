@@ -116,14 +116,14 @@
       box-shadow: 0 12px 40px rgba(20,30,20,0.04);
     }
 
-    /* We animate the track with CSS using a duration variable so we can slow on hover */
+    /* We use JS scroll looping; disable the CSS marquee animation to avoid conflicting behavior */
     .carousel-track {
       display:flex;
       gap:16px;
       align-items:flex-start;
       white-space:nowrap;
-      /* marquee animation for automatic sliding */
-      animation: marquee var(--marquee-duration) linear infinite;
+      /* animation disabled (JS will scroll) */
+      animation: none;
       will-change: transform;
       padding:12px;
       transform: translate3d(0,0,0);
@@ -131,7 +131,7 @@
 
     @keyframes marquee {
       0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); } /* second half is duplicate set */
+      100% { transform: translateX(-50%); } /* kept for reference but not used */
     }
 
     /* make each item a fixed width so scroll is consistent */
@@ -158,12 +158,11 @@
     .video-thumb{position:relative;cursor:pointer;border-radius:10px;overflow:hidden}
     .video-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:white;opacity:0.95;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.18));}
 
-    /* slow the animation on hover (longer duration -> slower) */
-    .carousel:hover .carousel-track,
-    .carousel:focus-within .carousel-track {
-      animation-duration: calc(var(--marquee-duration) * 2.5); /* slow down when hovered */
-      cursor: grab;
-    }
+    /* (hover-slow removed intentionally) */
+
+    /* media-row (new row under carousel for two videos) */
+    .media-row { display:flex; gap:12px; margin-top:14px; }
+    .media-row .video-thumb { flex: 1 1 48%; max-width:48%; }
 
     /* Testimonials */
     .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
@@ -199,6 +198,8 @@
       .hero-grid{grid-template-columns:1fr;gap:18px}
       .info-grid{grid-template-columns:1fr}
       .carousel-track > * { flex: 0 0 240px; max-width:240px; }
+      .media-row { flex-direction: column; }
+      .media-row .video-thumb { max-width:100%; width:100%; }
     }
   </style>
 </head>
@@ -298,12 +299,10 @@
       <!-- Carousel wrapper -->
       <div class="carousel reveal" id="carousel" tabindex="0" aria-label="Media carousel">
         <div class="carousel-track" id="carouselTrack">
-          <!-- original items -->
+          <!-- FIRST ROW: exactly 10 photo placeholders (no videos) -->
           <img class="gallery-item" src="assets/photo1.jpg" alt="photo placeholder 1" data-full="assets/photo1-large.jpg">
           <img class="gallery-item" src="assets/photo2.jpg" alt="photo placeholder 2" data-full="assets/photo2-large.jpg">
           <img class="gallery-item" src="assets/photo3.jpg" alt="photo placeholder 3" data-full="assets/photo3-large.jpg">
-
-          <!-- added more pictures (replace filenames with your files) -->
           <img class="gallery-item" src="assets/photo4.jpg" alt="photo placeholder 4" data-full="assets/photo4-large.jpg">
           <img class="gallery-item" src="assets/photo5.jpg" alt="photo placeholder 5" data-full="assets/photo5-large.jpg">
           <img class="gallery-item" src="assets/photo6.jpg" alt="photo placeholder 6" data-full="assets/photo6-large.jpg">
@@ -311,41 +310,11 @@
           <img class="gallery-item" src="assets/photo8.jpg" alt="photo placeholder 8" data-full="assets/photo8-large.jpg">
           <img class="gallery-item" src="assets/photo9.jpg" alt="photo placeholder 9" data-full="assets/photo9-large.jpg">
           <img class="gallery-item" src="assets/photo10.jpg" alt="photo placeholder 10" data-full="assets/photo10-large.jpg">
-          <img class="gallery-item" src="assets/photo11.jpg" alt="photo placeholder 11" data-full="assets/photo11-large.jpg">
-          <img class="gallery-item" src="assets/photo12.jpg" alt="photo placeholder 12" data-full="assets/photo12-large.jpg">
-
-          <!-- existing video thumb (will open modal and play) -->
-          <div class="video-thumb" data-video="assets/video1.mp4" role="button" tabindex="0" aria-label="Play session video 1">
-            <img src="assets/video1-thumb.jpg" alt="video placeholder 1">
-            <div class="video-overlay">▶</div>
-          </div>
-
-          <!-- more video thumbnails -->
-          <div class="video-thumb" data-video="assets/video2.mp4" role="button" tabindex="0" aria-label="Play session video 2">
-            <img src="assets/video2-thumb.jpg" alt="video placeholder 2">
-            <div class="video-overlay">▶</div>
-          </div>
-
-          <div class="video-thumb" data-video="assets/video3.mp4" role="button" tabindex="0" aria-label="Play session video 3">
-            <img src="assets/video3-thumb.jpg" alt="video placeholder 3">
-            <div class="video-overlay">▶</div>
-          </div>
-
-          <div class="video-thumb" data-video="assets/video4.mp4" role="button" tabindex="0" aria-label="Play session video 4">
-            <img src="assets/video4-thumb.jpg" alt="video placeholder 4">
-            <div class="video-overlay">▶</div>
-          </div>
-
-          <div class="video-thumb" data-video="assets/video5.mp4" role="button" tabindex="0" aria-label="Play session video 5">
-            <img src="assets/video5-thumb.jpg" alt="video placeholder 5">
-            <div class="video-overlay">▶</div>
-          </div>
 
           <!-- DUPLICATE SET (keeps the loop seamless) -->
           <img class="gallery-item" src="assets/photo1.jpg" alt="photo placeholder 1" data-full="assets/photo1-large.jpg">
           <img class="gallery-item" src="assets/photo2.jpg" alt="photo placeholder 2" data-full="assets/photo2-large.jpg">
           <img class="gallery-item" src="assets/photo3.jpg" alt="photo placeholder 3" data-full="assets/photo3-large.jpg">
-
           <img class="gallery-item" src="assets/photo4.jpg" alt="photo placeholder 4" data-full="assets/photo4-large.jpg">
           <img class="gallery-item" src="assets/photo5.jpg" alt="photo placeholder 5" data-full="assets/photo5-large.jpg">
           <img class="gallery-item" src="assets/photo6.jpg" alt="photo placeholder 6" data-full="assets/photo6-large.jpg">
@@ -353,34 +322,19 @@
           <img class="gallery-item" src="assets/photo8.jpg" alt="photo placeholder 8" data-full="assets/photo8-large.jpg">
           <img class="gallery-item" src="assets/photo9.jpg" alt="photo placeholder 9" data-full="assets/photo9-large.jpg">
           <img class="gallery-item" src="assets/photo10.jpg" alt="photo placeholder 10" data-full="assets/photo10-large.jpg">
-          <img class="gallery-item" src="assets/photo11.jpg" alt="photo placeholder 11" data-full="assets/photo11-large.jpg">
-          <img class="gallery-item" src="assets/photo12.jpg" alt="photo placeholder 12" data-full="assets/photo12-large.jpg">
+        </div>
+      </div>
 
-          <div class="video-thumb" data-video="assets/video1.mp4" role="button" tabindex="0" aria-label="Play session video 1">
-            <img src="assets/video1-thumb.jpg" alt="video placeholder 1">
-            <div class="video-overlay">▶</div>
-          </div>
+      <!-- NEW: additional row below carousel for two videos (static row you requested earlier) -->
+      <div class="media-row">
+        <div class="video-thumb" data-video="assets/video6.mp4" role="button" tabindex="0" aria-label="Play extra video 1">
+          <img src="assets/video6-thumb.jpg" alt="extra video thumbnail 1">
+          <div class="video-overlay">▶</div>
+        </div>
 
-          <div class="video-thumb" data-video="assets/video2.mp4" role="button" tabindex="0" aria-label="Play session video 2">
-            <img src="assets/video2-thumb.jpg" alt="video placeholder 2">
-            <div class="video-overlay">▶</div>
-          </div>
-
-          <div class="video-thumb" data-video="assets/video3.mp4" role="button" tabindex="0" aria-label="Play session video 3">
-            <img src="assets/video3-thumb.jpg" alt="video placeholder 3">
-            <div class="video-overlay">▶</div>
-          </div>
-
-          <div class="video-thumb" data-video="assets/video4.mp4" role="button" tabindex="0" aria-label="Play session video 4">
-            <img src="assets/video4-thumb.jpg" alt="video placeholder 4">
-            <div class="video-overlay">▶</div>
-          </div>
-
-          <div class="video-thumb" data-video="assets/video5.mp4" role="button" tabindex="0" aria-label="Play session video 5">
-            <img src="assets/video5-thumb.jpg" alt="video placeholder 5">
-            <div class="video-overlay">▶</div>
-          </div>
-
+        <div class="video-thumb" data-video="assets/video7.mp4" role="button" tabindex="0" aria-label="Play extra video 2">
+          <img src="assets/video7-thumb.jpg" alt="extra video thumbnail 2">
+          <div class="video-overlay">▶</div>
         </div>
       </div>
 
@@ -509,20 +463,36 @@
       closeBtn.addEventListener('click', closeModal);
       modal.addEventListener('click', (ev) => { if (ev.target === modal) closeModal(); });
 
-      // Delegated click for images and video thumbs (works for clones too)
+      // Delegated click for images and video thumbs (works for clones too and for new media-row)
       const carouselTrack = document.getElementById('carouselTrack');
-      carouselTrack && carouselTrack.addEventListener('click', function (e) {
-        const img = e.target.closest('.gallery-item');
-        if (img) {
-          const full = img.dataset.full || img.src;
-          openImage(full, false);
-          return;
-        }
+      if (carouselTrack) {
+        carouselTrack.addEventListener('click', function (e) {
+          const img = e.target.closest('.gallery-item');
+          if (img) {
+            const full = img.dataset.full || img.src;
+            openImage(full, false);
+            return;
+          }
+          const vid = e.target.closest('.video-thumb');
+          if (vid) {
+            const src = vid.dataset.video;
+            openImage(src, true);
+            return;
+          }
+        });
+      }
+
+      // Also listen on document for clicks on thumbs outside the track (media-row)
+      document.addEventListener('click', function (e) {
         const vid = e.target.closest('.video-thumb');
         if (vid) {
           const src = vid.dataset.video;
-          openImage(src, true);
-          return;
+          if (src) openImage(src, true);
+        }
+        const img = e.target.closest('.gallery-item');
+        if (img) {
+          const full = img.dataset.full || img.src;
+          if (full) openImage(full, false);
         }
       });
 
@@ -531,33 +501,45 @@
         el.addEventListener('keypress', (e) => { if (e.key === 'Enter') el.click(); });
       });
 
-      // --- CAROUSEL fallback JS (keeps original behavior if desired) ---
-      (function setupCarouselFallback() {
-        // This code is intentionally non-destructive: it won't run the previous scroll JS
-        // because we now animate via CSS. However we add event listeners so hovering (or keyboard)
-        // toggles a slower duration variable for a smoother slow-down experience.
+      // --- SMOOTH JS CAROUSEL LOOP (seamless, no visible reset) ---
+      (function setupSmoothCarouselLoop() {
         const carousel = document.getElementById('carousel');
-        if (!carousel) return;
+        const track = document.getElementById('carouselTrack');
+        if (!carousel || !track) return;
 
-        const root = document.documentElement;
+        // Ensure starting scroll position
+        carousel.scrollLeft = 0;
 
-        function slowDown() {
-          // increase duration to slow the animation down
-          root.style.setProperty('--marquee-duration', '180s');
+        // speed (pixels per frame) - tweak smaller for slower, larger for faster
+        const speed = 0.45; // you can adjust this value (e.g., 0.25 for slower)
+
+        let running = true;
+        let rafId = null;
+
+        function step() {
+          if (running) {
+            carousel.scrollLeft += speed;
+            // half of track width (since you duplicated set in markup)
+            const half = track.scrollWidth / 2;
+            if (carousel.scrollLeft >= half) {
+              // jump back by half — because content is duplicated this jump is seamless
+              carousel.scrollLeft -= half;
+            }
+          }
+          rafId = requestAnimationFrame(step);
         }
-        function speedUp() {
-          // reset to default slow speed
-          root.style.setProperty('--marquee-duration', '60s');
-        }
 
-        carousel.addEventListener('mouseenter', slowDown);
-        carousel.addEventListener('mouseleave', speedUp);
-        carousel.addEventListener('focusin', slowDown);
-        carousel.addEventListener('focusout', speedUp);
+        // Keep animation running continuously (no hover slow-down). Still allow pause if user focuses the carousel.
+        carousel.addEventListener('focusin', () => { running = false; });
+        carousel.addEventListener('focusout', () => { running = true; });
 
-        // also pause animation on touchstart for mobile to allow tapping
-        carousel.addEventListener('touchstart', slowDown, {passive:true});
-        carousel.addEventListener('touchend', speedUp, {passive:true});
+        // Start loop
+        step();
+
+        // cleanup on unload
+        window.addEventListener('beforeunload', () => {
+          cancelAnimationFrame(rafId);
+        });
       })();
 
       // Contact form placeholder handler
@@ -572,5 +554,3 @@
   </script>
 </body>
 </html>
-
-
